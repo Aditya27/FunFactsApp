@@ -1,5 +1,6 @@
 package com.example.aditya.funfactsapp;
 
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,13 +17,15 @@ import android.widget.Toast;
 public class FunFactsActivity extends AppCompatActivity {
 
     public static final String TAG=FunFactsActivity.class.getSimpleName();
-    private FactBook mfactBook = new FactBook();
+    private FactBook mFactBook;
     private ColorWheel mColor = new ColorWheel();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fun_facts);
+
+
 
         //display and assign values to view variables.
         final TextView funFactText= (TextView) findViewById(R.id.funFactTextView);
@@ -36,8 +39,10 @@ public class FunFactsActivity extends AppCompatActivity {
         funFactButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Resources res = getResources();
+                mFactBook = new FactBook(res.getStringArray(R.array.app_facts));
                 int color=mColor.getColor();
-                funFactText.setText(mfactBook.getFact());
+                funFactText.setText(mFactBook.getFact());
                 relativeLayout.setBackgroundColor(color);
                 funFactButton.setTextColor(color);
             }
